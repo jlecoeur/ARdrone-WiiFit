@@ -64,19 +64,22 @@ def main():
             event = events[0]
             if(event.mass.totalWeight > 20):
                 if not flying:
-                	flying = True
-                	drone.takeoff()
-                print '_____'
+                    flying = True
+                    time_take_off = time.time()
+                    drone.takeoff()
+#                print '_____'
                 TL, TR, BL, BR = event.mass.topLeft, event.mass.topRight, event.mass.bottomLeft, event.mass.bottomRight
                 TM = event.mass.totalWeight
                 pitch = ((BL + BR) - (TL + TR)) / TM
                 roll = ((TR + BR) - (TL + BL)) / TM
                 yaw = 2 * ((TL - BL) - (TR - BR)) / TM 
-                print pitch, roll, yaw
+                #print pitch, roll, yaw
                 drone.move_and_turn(roll, pitch, 2 * yaw)
             else:
                 if flying:
                     drone.land()
+                    print '_____'                                    
+                    print 'Flight time : ', time.time()-time_take_off, 's'
                     flying = False
         pygame.event.clear()
         clock.tick(50)
