@@ -62,7 +62,7 @@ def main():
         elif pygame.event.peek(wiiboard.WIIBOARD_MASS):
             events = pygame.event.get(wiiboard.WIIBOARD_MASS)
             event = events[0]
-            if(event.mass.totalWeight > 20):
+            if(event.mass.totalWeight > 10):
                 if not flying:
                     flying = True
                     time_take_off = time.time()
@@ -74,7 +74,7 @@ def main():
                 roll = ((TR + BR) - (TL + BL)) / TM
                 yaw = 2 * ((TL - BL) - (TR - BR)) / TM 
                 #print pitch, roll, yaw
-                drone.move_and_turn(roll, pitch, 2 * yaw)
+                drone.move_and_turn(roll, pitch, 0)
             else:
                 if flying:
                     drone.land()
